@@ -5,33 +5,27 @@ Created on Thu Dec 28 15:43:05 2017
 @author: Shameer Omar
 Euler Problem - 5
 """
+import numpy as np
 
-# This function checks if the number provided can be completly divided by the 
-def CheckEvenDivisible (number, divisor):
-    remainder = number % divisor
-    return remainder == 0
+parameter = int(20)
+answer = int(1)
 
-# This function sets the intial list to 
-def SetList (listSize):
-    newList = []
+loopCounter = int(0)
+check = True
+limit = int(np.floor(np.sqrt(parameter)))
+
+primeNumbers = [2, 3, 5, 7, 11, 13, 17, 19]
+
+while primeNumbers[loopCounter] <= parameter:
+    exponent = int(1)
     
-    for index in range(listSize):
-        newList.append(False)
+    if check:
+        if primeNumbers[loopCounter] <= limit:
+            exponent = np.floor(np.log(parameter)/np.log(primeNumbers[loopCounter]))
+        else:
+            check = False
+        
+    answer = answer * (pow(primeNumbers[loopCounter], exponent))
+    loopCounter += 1
+
     
-    return newList
-
-def CheckListTrue (testList):
-    return all(item == True for item in testList)
-
-divisorRange = range(1, 21)
-lowestNumber = max(divisorRange)*100
-testList = SetList(max(divisorRange))
-
-while (CheckListTrue(testList) != True):
-    for divisor in divisorRange:        
-        testList[divisor - 1] = CheckEvenDivisible(lowestNumber, divisor)
-    
-    if (CheckListTrue(testList)):
-        break
-    else:
-        lowestNumber = lowestNumber + 20
